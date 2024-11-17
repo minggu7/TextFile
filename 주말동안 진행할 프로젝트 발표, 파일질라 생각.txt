@@ -1,0 +1,86 @@
+바탕화면 리액트 파일 먼저 프로젝트 생성
+바탕화면 스프링 파일 프로젝트 생성(곧바로 DB 연결). 연결 되어서 잘 돌아가는지만 확인
+
+리액트와 스프링부트 연결.
+
+리액트(요청. api 형식은 sping.megapos.co.kr
+
+
+
+리액트 요청 예제
+
+
+// React에서 API 요청 (axios 예시)
+import axios from 'axios';
+
+axios.get('https://sping.megapos.co.kr/api/user')
+  .then(response => {
+    console.log('응답 데이터:', response.data);
+  })
+  .catch(error => {
+    console.error('API 호출 오류:', error);
+  });
+
+Spring 예제
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/api") // 공통 경로 설정
+public class UserController {
+
+    @GetMapping("/user") // React에서 요청한 경로
+    public User getUser() {
+        // User 객체는 응답으로 보낼 데이터를 담기 위한 예제 클래스
+        return new User("홍길동", "hong@example.com", 25); // JSON 형태로 반환됨
+    }
+}
+
+일관성을 유지하려면 JSON으로 처리하는 것이 일반적으로 더 적합
+
+
+프록시 정보 설정 위치
+proxy는 React 개발 서버(npm start)에서 동작하도록 package.json 파일에 추가해야 합니다.
+
+여기서 연결 확인하고나서든 하기전이든 cors 설정 잡고 가기
+
+예시: package.json에 프록시 설정 추가
+json
+코드 복사
+{
+  "name": "react-app",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "axios": "^1.5.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "proxy": "https://sping.megapos.co.kr"
+}
+프록시 정보는 pakage.json 파일에 저장
+
+
+
+
+여기까지 리액트 요청 - 서버 응답 구조 완료
+
+이렇게 DB 연동안하고 먼저 한 다음에 서버 DB 연결 해보자.
+리액트 - 스프링 구조가 안전하다고 생각이 들면 그때 DB 연결해서 테이블 정보 출력하는 그림까지
+
+
+React: React 앱은 정적 파일로 빌드되어 Nginx 같은 정적 파일 서버에서 제공됩니다.(원격에서 엔진엑스 설정.
+root 파일 경로를 리액트 파일 경로로? 였나? 가서 확인하고 같게 하기)
+Spring Boot: Spring Boot는 백엔드 API 서버로 동작하며 DB와 연결됩니다.
+DB는 마이바티스
+위 구조 다 하고나서 좀 남으면 사큐리티 설정까지.
+FileZilla는 이 과정에서 필요한 파일을 서버에 업로드하는 역할을 합니다.

@@ -1,0 +1,67 @@
+-- CREATE DATABASE IF NOT EXISTS sping_db;
+-- CREATE USER 'ucss002'@'%' IDENTIFIED BY 'qwerasdf!@#$';
+-- GRANT ALL PRIVILEGES ON sping_db.* TO 'ucss002'@'%';
+
+-- 권한 변경 사항 적용
+-- FLUSH PRIVILEGES;
+
+-- CREATE TABLE users (
+--     id INT AUTO_INCREMENT PRIMARY KEY,  -- id는 오토인크리먼트 기본키
+--     email VARCHAR(255) NOT NULL,        -- 사용자 이메일, 최대 길이 255자
+--     username VARCHAR(255) NOT NULL,     -- 사용자 아이디, 최대 길이 255자
+--     password VARCHAR(255) NOT NULL,     -- 사용자 비밀번호, 최대 길이 255자
+--     role VARCHAR(50) NOT NULL DEFAULT 'USER',  -- 사용자 권한, 기본값은 'USER'
+--     createAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- 계정 생성일, 기본값은 현재 시간
+--     updateAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP  -- 계정 변경일, 기본값은 현재 시간, 변경 시 자동 업데이트
+-- );
+
+
+어드민 테이블을 따로 만들어 관리할 수 있지만 그냥 쿼리문을 변경하여 조회하는것이
+하나의 테이블 가지고 효율적인 자원을 사용하는것이라 생각
+
+어드민의 권한은 직접 DB에서 권한 값 설정하여 만들면 어드민
+페이지에서 만들면 일반 유저
+
+
+.yml파일 설정
+
+resourres 파일에 mybatis-config.xml 파일 생성
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <typeAliases>
+        <typeAlias type="com.HomeProject.project.dto.UserDTO" alias="User"/>
+    </typeAliases>
+</configuration>
+DTO를 mapper에서 사용하기 위해 alias(별칭) 처리
+
+위 config 설정의 별칭 사용함으로써
+<mapper namespace="User">
+    
+</mapper>
+dto 설정과 매핑. 그대로 가져와 사용
+ALTER TABLE users
+MODIFY created_At VARCHAR(255),
+MODIFY updated_At VARCHAR(255);
+
+DELETE FROM users;
+
+-- ALTER TABLE users RENAME COLUMN createdat TO createAt;
+-- ALTER TABLE users RENAME COLUMN updated_at TO updateAt;
+
+-- INSERT INTO users (id, email, username, password, role, createAt, updateAt)
+-- VALUES (1, 'user1@example.com', 'user1', 'password1', 'USER', '2024-11-17 10:00:00', '2024-11-17 10:00:00');
+
+-- 2번째 사용자 데이터 삽입
+-- INSERT INTO users (id, email, username, password, role, createAt, updateAt)
+-- VALUES (2, 'user2@example.com', 'user2', 'password2', 'USER', '2024-11-16 14:00:00', '2024-11-16 14:30:00');
+
+-- -- 3번째 사용자 데이터 삽입
+-- INSERT INTO users (id, email, username, password, role, createAt, updateAt)
+-- VALUES (3, 'user3@example.com', 'user3', 'password3', 'ADMIN', '2024-11-15 09:00:00', '2024-11-15 09:00:00');
+
+-- ALTER TABLE users
+-- MODIFY COLUMN role VARCHAR(50) NOT NULL DEFAULT 'USER';

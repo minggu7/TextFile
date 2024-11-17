@@ -1,0 +1,76 @@
+완벽하게 알고가자.
+Controller -> Service -> Respository -> mapper의 순서와 역할 간단하게 아주 간단하게 요약
+
+Controller: 사용자 요청 처리 → Service: 비즈니스 로직 처리 → Repository: 데이터베이스와 연결 → Mapper (필요시): 데이터 변환
+
+
+
+useEffect는 React에서 **부수 효과(side effects)**를 처리하는 훅입니다. 컴포넌트가 렌더링될 때마다 특정 작업을 실행하거나, 렌더링 이후에 한번만 실행하고 싶은 작업을 설정할 때 사용
+
+회원목록 같은놈은 누르면 회원 목록 페이지로 가기만 하면 되기 때문에
+해당 컴포넌트는 렌더링될 때 한번만 딱 뜨고나서는 신경쓰지 않아도 됨.
+
+
+useEffect의 마지막에 오는 [ ]은 **의존성 배열(dependency array)
+이 배열이 의미하는 것은 useEffect가 실행되는 조건
+즉, 한번 컴포넌트 렌더링 될 때 실행하고 끝. 추가 조건이 없음. 리 렌더링할때는 작동 X
+
+
+
+class는 JavaScript의 예약어이기 때문에, React에서는 혼동을 피하기 위해 className이라는 속성을 사용
+
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";//리액트 라우팅 라이브러리, 라우팅 설정.(URL에 따라 다른 컴포넌트를 렌더링)
+
+@RestController
+RESTful API를 제공하기 위해 설계된 컨트롤러.
+모든 메서드가 기본적으로 JSON이나 XML과 같은 데이터 형식으로 반환.
+@ResponseBody를 자동으로 포함하기 때문에 별도로 선언할 필요 없음.
+
+findAll()은 특별히 매개변수 없이 실행되며, 단순히 데이터베이스에서 모든 사용자 목록을 가져오는 역할을 합니다.
+UserDTO가 변경될 값이나 조건을 전달하는 객체가 아니기 때문에, 매개변수로 UserDTO를 받을 필요가 없습니다. 단지 모든 데이터를 반환하는 것
+
+<select id="PasswordIsValid" parameterType="Member" resultType="int">
+파라미터 타입은  쿼리에서 사용할 매개변수의 타입
+리절트 타입은 DB에서 가져온 값을 어떤 객체로 매핑(반환 결과)
+
+{headers.map((header, index) => (//자바와 다르게 키 - 값 개념이라기보단 값, 배열의 인덱스
+<th key={index}>{headers}</th>// 'header'가 배열의 각 항목을 출력
+
+{users.length > 0 && ( //만약 하나라도 데이터가 있다면
+            users.map((user) => ( //배열 데이터를 각각 user라는 변수로 지정. id 기준으로 반복
+              <tr key={user.id}>
+
+{users.map((user) => ( // useState에 있는 변수 값 users의 배열 데이터를 각각 user라는 변수로 지정. id 기준으로 반복
+              <tr key={user.id}>
+
+export default App;는 App 컴포넌트를 외부로 내보내는 역할
+
+기본 내보내기 (default export): export default를 사용하여 컴포넌트나 함수를 내보내면, 가져오는 쪽에서 원하는 이름으로 사용할 수 있습니다.
+
+export와 import**를 사용하는 이유는 **"모듈화"와 "재사용성"**을 높이기 위한 것입니다. 즉, 하나의 컴포넌트를 다른 파일에서 필요할 때마다 재사용하기 위해 꼬리에 꼬리를 무는 방식으로 계속 **"내보내고 가져오고"**를 반복
+
+namespace="com.example.HomeSpring.repository.MemberRepository"는 MyBatis에서 매퍼 파일을 특정 Java 인터페이스와 연결하는 역할
+MemberRepository 클래스가 MemberMapper.xml을 참조하도록
+
+index.js에서 React Router를 설정한다고 해서 모든 컴포넌트가 미리 렌더링되는 것은 아닙니다. React Router는 현재 URL에 해당하는 컴포넌트만 렌더링하도록 작동합니다. 즉, /users로 접근할 때 Users 컴포넌트만 렌더링되고, / 경로일 때는 App 컴포넌트만 렌더링됩니다.
+
+URL 경로에 따라 렌더링되는 컴포넌트를 동적으로 변경
+URL만 바꾸면 필요한 컴포넌트만 렌더링
+
+new Date().toISOString()을 사용하여 생성됩니다. 이 방식은 JavaScript의 Date 객체를 사용해 현재 날짜와 시간을 ISO 8601 형식(yyyy-MM-dd'T'HH:mm:ss.sssZ)으로 반환
+
+json으로 되돌려주기
+
+이미 라우팅이 구현되어 있으므로 SignUp 컴포넌트에 홈으로 돌아가기 버튼을 추가하고, 클릭 시 홈 경로(/)로 이동하도록 설정
+
+navigate는 react-router-dom에서 제공하는 프로그램적 페이지 이동 기능을 구현하기 위한 도구입니다. 이를 통해 특정 이벤트(버튼 클릭, API 응답 처리 등) 이후 원하는 경로로 사용자를 이동
+라우팅을 설정할 때, **<Router>와 <Routes>**를 통해 애플리케이션에서 경로와 컴포넌트를 연결
+
+required 속성은 HTML 폼 요소에 필수 입력 필드
+
+onChange는 입력 필드의 값이 변할 때마다 호출되는 이벤트 핸들러
+
+id기준 마이페이지
+
+연결이 우선
+연결 성공하면 정리부터.

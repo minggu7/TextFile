@@ -1,0 +1,55 @@
+FileZilla를 사용하여 React의 빌드 결과물과 Spring Boot 애플리케이션을 서버에 업로드한 후, 올바르게 설정된 웹 서버에서 URL을 통해 접속할 수 있습니다. 과정은 다음과 같습니다:
+
+1. React 프로젝트 빌드
+React 프로젝트를 로컬에서 빌드합니다. npm run build 명령을 실행하면 build/ 폴더에 정적 파일들이 생성됩니다.
+이 build/ 폴더 내에 있는 index.html, CSS, JS 파일들이 웹 페이지를 구성하는 파일들입니다.
+2. 파일 업로드 (FileZilla 사용)
+FileZilla를 사용하여 로컬에서 빌드된 React 파일들(index.html, JS, CSS 등)을 원격 서버의 웹 서버 디렉토리에 업로드합니다. 예를 들어, Apache 웹 서버의 기본 루트 디렉토리인 /var/www/html/에 업로드할 수 있습니다.
+3. Apache 웹 서버 설정
+Apache는 기본적으로 /var/www/html/ 디렉토리를 루트 디렉토리로 사용합니다. 따라서 React의 index.html 파일을 여기에 업로드하면, http://www.sping.megapos.co.kr URL을 통해 접속할 수 있습니다.
+4. Spring Boot 애플리케이션 업로드
+Spring Boot 애플리케이션은 .jar 파일로 빌드하여 서버에 업로드하고, 백엔드 API 서버로 작동시킬 수 있습니다.
+이 경우, React는 프론트엔드로, Spring Boot는 백엔드 API 서버로 역할을 하며, CORS 설정과 API URL 경로를 적절히 설정해야 합니다.
+5. 접속
+이제 브라우저에서 http://www.sping.megapos.co.kr로 접속하면, 업로드한 React 앱이 정상적으로 표시됩니다.
+백엔드 API와의 연결도 가능합니다. 예를 들어, http://www.sping.megapos.co.kr/api/user로 Spring Boot API에 요청을 보낼 수 있습니다.
+간단한 예시:
+React 앱 URL: http://www.sping.megapos.co.kr -> React 앱이 로드됩니다.
+Spring Boot API: http://www.sping.megapos.co.kr/api/user -> Spring Boot에서 데이터를 반환하는 API가 호출됩니다.
+
+자 그럼 로컬에서 만든 파일들로 외부 ip에 띄워. 충분히 프론트 - 서버 기능을 하겠지?
+그럼 DB연동은 어떻게 돼? 실행 파일들이 로컬에서 돌아가는건 아니지않아?
+
+Spring Boot와 DB 연동
+Spring Boot 애플리케이션이 실행될 때 DB 연결 정보를 외부 DB 서버에 맞게 설정합니다. 이 설정은 application.properties 또는 application.yml 파일에서 이루어집니다.
+외부 MySQL 포트를 열어서 DB와 연결
+
+MySQL 서버가 외부에서 접근 가능하도록 포트가 열려 있어야 합니다. 기본적으로 MySQL은 3306 포트를 사용합니다.
+만약 로컬 또는 특정 서버에서 MySQL을 운영하고 있고, 그 서버가 외부 접근을 허용해야 한다면, 방화벽 설정이나 MySQL 설정에서 외부 IP 접근을 허용
+
+그러니까 만약 호스팅 mysql DB포트번호가 13066에다가 그 sql에서 root사용자, 비밀번호 qwerasdf!@#$이라면
+예를들어 .yml파일 설정 어떻게 돼?
+
+EX)
+spring:
+  datasource:
+    url: jdbc:mysql://<호스트 IP 또는 DB 엔드포인트>:13066/데이터베이스명
+    username: root
+    password: 'qwerasdf!@#$'
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+
+Ex) 호스트 ip가 198.221.123.34 이고 root 사용자에 내부 DB가 HostDB이면 어떻게 될까? 
+
+spring:
+  datasource:
+    url: jdbc:mysql://198.221.123.34:13066/HostDB
+    username: root
+    password: 'qwerasdf!@#$'
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+이런 형식이다.
+
+MyBatis를 사용할 때도 Spring Boot의 application.yml 설정 방식은 동일
+당연히 mybatis config하고 mybatois mapper(SQL 쿼리와 Java 객체 간의 매핑을 처리) 붙겠지?
